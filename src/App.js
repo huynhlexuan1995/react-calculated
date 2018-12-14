@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import './App.css';
 import Numbers from './components/Numbers';
+import Dial from './components/Dial';
 class App extends Component {
 
   constructor(props){
     super(props);
     this.state = {
       value: '',
-      isOpen:false
-    }
+      status:false,
+    };
   }
 
-  receiveValue= (value) => {
+  receiveValue = (value) => {
     this.setState({
       value
-    })
+    });
+  }
+  onKeyPressed(e){
+    console.log(e.key);
   }
   render() {
     return (
@@ -23,12 +27,13 @@ class App extends Component {
           <div className="top-time">
             <p>Call Time: 00:00:00</p>
           </div>
-          <input type="text" name="number" id="inputNumber" className="form-control" value={this.state.value}/>
+          <input type="text" name="number" id="inputNumber" className="form-control"
+          value={this.state.value}
+          onKeyDown={this.onKeyPressed}
+          />
         </div>
         <Numbers onReceiveValue = {this.receiveValue}/>
-        <div className="main-bot">
-          <button type="button" class="btn btn-success" id="btn-dial">Dial</button>
-        </div>
+        <Dial/>
       </div>
     );
   }
