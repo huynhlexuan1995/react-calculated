@@ -8,29 +8,45 @@ class App extends Component {
     super(props);
     this.state = {
       value: '',
-      status:false,
     };
   }
 
-  receiveValue = (value) => {
+  receiveValue = (receiveValue) => {
+    let { value } = this.state;
+    value += receiveValue;
     this.setState({
       value
     });
   }
-  onKeyPressed(e){
-    console.log(e.key);
+
+  componentDidMount() {
+    window.addEventListener("keydown", this.handleKeyDown);
   }
+  handleKeyDown = e => {
+    let { value } = this.state;
+    if (!isNaN(parseInt(e.key))) {
+      value += e.key;
+      this.setState({ value });
+      console.log(value);
+    }
+    else if(e.keyCode === 8){
+      value = parseInt(value/10);
+      this.setState({
+        value
+      })
+    }
+    //console.log(!isNaN(parseInt(e.key)));
+  };
+
   render() {
+    const {value}=this.state;
     return (
       <div className="App">
         <div className="app-top">
           <div className="top-time">
             <p>Call Time: 00:00:00</p>
           </div>
-          <input type="text" name="number" id="inputNumber" className="form-control"
-          value={this.state.value}
-          onKeyDown={this.onKeyPressed}
-          />
+           <div className="screen" id="inputNumber">{value}</div>
         </div>
         <Numbers onReceiveValue = {this.receiveValue}/>
         <Dial/>

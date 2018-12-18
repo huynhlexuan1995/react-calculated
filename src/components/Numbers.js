@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 
-let value = '';
+
 class Numbers extends Component {
 
 
 changeNumber = (e) => {
-	value += e.target.name;
-	this.props.onReceiveValue(value)
+	this.props.onReceiveValue(e.target.name);
 }
 
   render() {
