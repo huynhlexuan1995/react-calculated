@@ -73,7 +73,7 @@
   width: 100%;
   background: #34495e;
   bottom: 0;
-  height: 199px;
+  height: 200px;
 }
 #btn-dial{
   margin-top: 50px;
@@ -96,7 +96,7 @@
   width: 100%;
   background: #34495e;
   bottom: 0;
-  height: 815px;
+  height: 800px;
 }
 #btn-hangup{
   margin-top: 50px;
@@ -106,4 +106,8 @@
   color: #ffffff;
   border: none;
   border-radius: 3px;
+  margin: 20px;
+}
+.close{
+  padding-top: 20px;
 }
