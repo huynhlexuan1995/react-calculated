@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import './App.css';
-import Numbers from './components/Numbers';
+import Numbering from './components/Numbering';
 import Dial from './components/Dial';
-import Runtime from './components/Runtime'
+
+// Numbering
+// Calling
+
+import './App.css';
 
 class App extends Component {
 
@@ -10,74 +13,65 @@ class App extends Component {
     super(props);
     this.state = {
       value: '',
-      isCalling: false,
-      
-    };
+      isCalling:false,
+    }
   }
 
-  receiveValue = (receiveValue) => {
-    let { value } = this.state;
-    value += receiveValue;
+  receiveValue=(e)=>{
+    let {value} = this.state;
+    value += e;
     this.setState({
       value
     });
   }
-
+  componentDidMount() {
+    window.addEventListener("keydown", this.handleKeyDown);
+  }
   handleInput = event => {
     const { value } = event.target;
     this.setState({value});
     console.log(event.target);
   }
 
-  componentDidMount() {
-    window.addEventListener("keydown", this.handleKeyDown);
-  }
   handleKeyDown = e => {
     let { value } = this.state;
+
     if (!isNaN(parseInt(e.key))) {
       value += e.key;
       this.setState({ value });
-
+      console.log(!isNaN(parseInt(e.key)));
     }
-    else if(e.keyCode === 8){
-      value = parseInt(value/10);
+    else if(e.keyCode === 8){  
+      value = value.substring(0,value.length-1);
       this.setState({
         value
       })
     }
-    //console.log(!isNaN(parseInt(e.key)));
   };
 
-  setCalling=(setcalling)=>{
-    let {isCalling} = this.state;
-    isCalling = setcalling;
+  setCalling=(setCalling)=>{
     this.setState({
-      isCalling
+      isCalling:setCalling
     });
-    
   }
 
   render() {
-    const {value,isCalling}=this.state;
-    console.log(this.state);
-    var elmRuntime = isCalling.isCalling
-    ? <Runtime
-        startTime = {Date.now()}
+    var {value,isCalling}=this.state;
+    var elmCalling = !isCalling
+    ?<Numbering  
+          onReceiveValue = {this.receiveValue}
+          onSetCalling = {this.setCalling}
     />
-    : 'Call Time: 00:00:00';
+    :<Dial status={isCalling}/>
     return (
-      <div className="App">
-        <div className="app-top">
-          <div className="top-time">
-           {elmRuntime}
-          </div>
-           <div className="screen" id="inputNumber"
-              onChange={this.handleInput}
-           >{value}</div>
-        </div>
-        <Numbers onReceiveValue = {this.receiveValue}/>
-        <Dial onSetCalling={this.setCalling}/>
-      </div>
+    	<div className="container-fluid call-phone">
+        {/* Numbering onClickCall={} */}
+        {/* Calling  */}
+    		<div type="text" name="name" id="inputName" className="form-control">{value}</div>
+
+        {elmCalling}
+
+    	</div>
     );
   }
 }
