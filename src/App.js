@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import Numbering from './components/Numbering';
 import Dial from './components/Dial';
 
-// Numbering
-// Calling
-
 import './App.css';
 
 class App extends Component {

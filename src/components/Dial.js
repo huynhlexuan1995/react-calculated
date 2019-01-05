@@ -4,8 +4,6 @@ import * as Icon from '@fortawesome/free-solid-svg-icons'
 import Runtime from './Runtime';
 import Endcall from './Endcall';
 
-// const SKIP_TIME = 5; // seconds
-
 class Dial extends Component {
     constructor(props){
         super(props);
